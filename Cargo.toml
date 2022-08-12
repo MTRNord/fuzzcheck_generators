@@ -1,0 +1,2 @@
+[workspace]
+members = ["fuzzcheck_serde_json_generator"]

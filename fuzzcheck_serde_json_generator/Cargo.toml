@@ -1,0 +1,10 @@
+[package]
+name = "fuzzcheck_serde_json_generator"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+fuzzcheck = { git = "https://github.com/loiclec/fuzzcheck-rs" }
+serde_json = { version = "1.0.83" }
