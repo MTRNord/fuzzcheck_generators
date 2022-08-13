@@ -1,2 +1,2 @@
 [workspace]
-members = ["fuzzcheck_serde_json_generator"]
+members = ["fuzzcheck_serde_json_generator", "fuzzcheck_json_string_generator"]
