@@ -46,8 +46,27 @@ pub fn json_value_mutator() -> impl Mutator<Value> {
         InternalJsonValue::default_mutator(),
         |value: &Value| map_serde_json_to_internal(value.clone()),
         |internal_json_value| map_internal_jv_to_serde(internal_json_value.clone()),
-        |_, cplx| cplx,
+        |input, _| calculate_output_cplx(input),
     )
+}
+
+// each byte = 1 unit of complexity (?)
+fn calculate_output_cplx(input: &Value) -> f64 {
+    match input {
+        Value::Null => 1.0,
+        Value::Bool(_) => 1.0,
+        Value::Number(_) => {
+            // 64-bit
+            1.0 + 8.0
+        }
+        Value::String(string) => 1.0 + string.len() as f64,
+        Value::Array(array) => array
+            .iter()
+            .fold(1.0, |acc, next| acc + calculate_output_cplx(next)),
+        Value::Object(object) => object.iter().fold(1.0, |acc, (key, value)| {
+            acc + 1.0 + key.len() as f64 + calculate_output_cplx(value) as f64
+        }),
+    }
 }
 
 fn map_serde_json_to_internal(value: Value) -> Option<InternalJsonValue> {
