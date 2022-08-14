@@ -2,8 +2,10 @@
 name = "fuzzcheck_serde_json_generator"
 version = "0.1.0"
 edition = "2021"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+license = "BSD-3-Clause"
+authors = [
+    "Teymour Aldridge <teymour@reasoning.page>"
+]
 
 [dependencies]
 fuzzcheck = "0.12.1"
