@@ -1,3 +1,6 @@
+//! This crate contains a Fuzzcheck mutator for [`serde_json::Value`]. The main
+//! item of relevance is [`json_value_mutator`].
+
 #![feature(no_coverage)]
 #![feature(type_alias_impl_trait)]
 
@@ -16,11 +19,7 @@ use fuzzcheck::{
 };
 use serde_json::{Number, Value};
 
-/// A mutator for [`serde_json::Value`].
-///
-/// The mutator is a bit too conservative at present (it will generate most of
-/// the JSON specification, apart from strings where it will not output the
-/// characters '"' and '\').
+/// A Fuzzcheck mutator for [`serde_json::Value`].
 ///
 /// Example usage with Fuzzcheck (see the
 /// [guide](https://fuzzcheck.neocities.org/tutorial1_writing_fuzz_target.html)
@@ -113,26 +112,17 @@ fn map_internal_jv_to_serde(internal: InternalJsonValue) -> Value {
         InternalJsonValue::Null => Value::Null,
         InternalJsonValue::Bool { inner } => Value::Bool(inner),
         InternalJsonValue::Number { inner } => Value::Number(Number::from(inner)),
-        InternalJsonValue::String { inner } => Value::String(remove_special_characters(inner)),
+        InternalJsonValue::String { inner } => Value::String(inner),
         InternalJsonValue::Array { inner } => {
             Value::Array(inner.into_iter().map(map_internal_jv_to_serde).collect())
         }
         InternalJsonValue::Object { inner } => Value::Object(
             inner
                 .into_iter()
-                .map(|(key, value)| {
-                    (
-                        remove_special_characters(key),
-                        map_internal_jv_to_serde(value),
-                    )
-                })
+                .map(|(key, value)| (key, map_internal_jv_to_serde(value)))
                 .collect(),
         ),
     }
-}
-
-fn remove_special_characters(string: String) -> String {
-    string.replace(&['"', '\\'], "")
 }
 
 #[derive(Clone)]
