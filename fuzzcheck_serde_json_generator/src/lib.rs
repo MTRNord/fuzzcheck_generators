@@ -19,6 +19,8 @@ use fuzzcheck::{
 };
 use serde_json::{Number, Value};
 
+pub type ValueMutator = impl Mutator<Value>;
+
 /// A Fuzzcheck mutator for [`serde_json::Value`].
 ///
 /// Example usage with Fuzzcheck (see the
@@ -40,7 +42,7 @@ use serde_json::{Number, Value};
 /// .launch();
 /// assert!(!result.found_test_failure)
 /// ```
-pub fn json_value_mutator() -> impl Mutator<Value> {
+pub fn json_value_mutator() -> ValueMutator {
     MapMutator::new(
         InternalJsonValue::default_mutator(),
         |value: &Value| map_serde_json_to_internal(value.clone()),
