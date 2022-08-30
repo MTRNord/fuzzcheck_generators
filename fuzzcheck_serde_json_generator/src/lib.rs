@@ -169,7 +169,7 @@ make_mutator! {
                     InternalJsonValue,
                     RecurToMutator<InternalJsonValueMutator>
                 > = {
-                    VecMutator::new(self_.into(), 0..=usize::MAX, true)
+                    VecMutator::new(self_.into(), 0..=usize::MAX)
                 }
             )]
             inner: Vec<InternalJsonValue>,
@@ -190,8 +190,7 @@ make_mutator! {
                                 self_.into()
                             )
                         ),
-                        0..=usize::MAX,
-                        true
+                        0..=usize::MAX
                     )
                 }
             )]
