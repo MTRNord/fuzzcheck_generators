@@ -1,7 +1,6 @@
 //! This crate contains a Fuzzcheck mutator for [`serde_json::Value`]. The main
 //! item of relevance is [`json_value_mutator`].
 
-#![feature(no_coverage)]
 #![feature(type_alias_impl_trait)]
 
 use fuzzcheck::mutators::bool::BoolMutator;
