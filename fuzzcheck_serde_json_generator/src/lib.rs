@@ -2,6 +2,7 @@
 //! item of relevance is [`json_value_mutator`].
 
 #![feature(type_alias_impl_trait)]
+#![feature(coverage_attribute)]
 
 use fuzzcheck::mutators::bool::BoolMutator;
 use fuzzcheck::mutators::integer::U64Mutator;
