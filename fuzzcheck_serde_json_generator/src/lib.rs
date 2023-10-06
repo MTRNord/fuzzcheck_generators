@@ -201,18 +201,6 @@ make_mutator! {
     }
 }
 
-#[derive(Clone)]
-pub struct JsonValue(serde_json::Value);
-
-impl DefaultMutator for JsonValue {
-    type Mutator = ValueMutator;
-
-    #[coverage(off)]
-    fn default_mutator() -> Self::Mutator {
-        json_value_mutator()
-    }
-}
-
 
 #[cfg(test)]
 #[test]
