@@ -201,6 +201,7 @@ make_mutator! {
     }
 }
 
+#[derive(Clone)]
 pub struct JsonValue(serde_json::Value);
 
 impl DefaultMutator for JsonValue {
