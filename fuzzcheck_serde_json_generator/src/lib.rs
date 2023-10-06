@@ -201,6 +201,16 @@ make_mutator! {
     }
 }
 
+impl DefaultMutator for serde_json::Value {
+    type Mutator = ValueMutator;
+
+    #[no_coverage]
+    fn default_mutator() -> Self::Mutator {
+        json_value_mutator()
+    }
+}
+
+
 #[cfg(test)]
 #[test]
 fn check_validity() {
