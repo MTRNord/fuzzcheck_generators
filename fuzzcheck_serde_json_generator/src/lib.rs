@@ -201,10 +201,12 @@ make_mutator! {
     }
 }
 
-impl DefaultMutator for serde_json::Value {
+pub struct JsonValue(serde_json::Value);
+
+impl DefaultMutator for JsonValue {
     type Mutator = ValueMutator;
 
-    #[no_coverage]
+    #[coverage(off)]
     fn default_mutator() -> Self::Mutator {
         json_value_mutator()
     }
